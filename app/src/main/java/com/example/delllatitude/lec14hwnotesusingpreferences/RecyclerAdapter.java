@@ -3,7 +3,9 @@ package com.example.delllatitude.lec14hwnotesusingpreferences;
 import android.content.ContentValues;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +44,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(ctx).inflate(R.layout.note_item_view, parent, false );
         ViewHolder viewHolder = new ViewHolder(view);
+
+        Log.e("TAG", "onCreateViewHolder: " + noteDataArrayList.size() );
+
         return viewHolder;
     }
 
@@ -59,12 +64,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView noteTitle, noteMessage;
+        FloatingActionButton fab;
 
         public ViewHolder(View itemView) {
             super(itemView);
             noteTitle = itemView.findViewById(R.id.tvNote);
             noteMessage = itemView.findViewById(R.id.tvDetails);
+            fab = itemView.findViewById(R.id.fabItem);
 
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
 //            itemView.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {

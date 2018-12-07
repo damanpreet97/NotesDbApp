@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvHint;
     RecyclerView rv;
     FloatingActionButton fab;
-    ArrayList<NoteData> noteDataArrayList;
+    ArrayList<NoteData> noteDataArrayList = new ArrayList<>();
     RecyclerAdapter recyclerAdapter;
     NoteDb noteDb;
     @Override
@@ -41,13 +41,10 @@ public class MainActivity extends AppCompatActivity {
 
         fab = findViewById(R.id.floatingActionButton);
 
-        noteDataArrayList = new ArrayList<>();
-
         recyclerAdapter = new RecyclerAdapter(this, noteDataArrayList, tvHint, noteDb);
 
-        rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        rv.setAdapter(recyclerAdapter);
+
+
 //        Gson gson = new Gson();
 //        int i = 0;
 //        while (!(sharedPreferences.getString(i + "", "none").equals("none"))) {
@@ -57,15 +54,16 @@ public class MainActivity extends AppCompatActivity {
 //            editor.remove(i + "");
 //            i++;
 //        }
-        if(noteDb.getAllNotes()!=null) {
-            noteDataArrayList = noteDb.getAllNotes();
-            for(NoteData noteData: noteDataArrayList){
-                new NoteData(noteData.getTitle(), noteData.getMessage(), noteData.getTime(), noteData.isStatus());
-            }
-            recyclerAdapter.notifyDataSetChanged();
-        }
+//        if(noteDb.getAllNotes().size() != 0) {
+//            noteDataArrayList.clear();
+//            noteDataArrayList.addAll(noteDb.getAllNotes());
+//            for(NoteData noteData: noteDataArrayList){
+//                new NoteData(noteData.getTitle(), noteData.getMessage(), noteData.getTime(), noteData.isStatus());
+//            }
+//            recyclerAdapter.notifyDataSetChanged();
+//        }
 
-        checkArrayListSize();
+//        checkArrayListSize();
 
         final View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_view, null, true);
 
@@ -78,12 +76,13 @@ public class MainActivity extends AppCompatActivity {
                         EditText etMessage = dialogView.findViewById(R.id.etMessage);
                         NoteData newNote = new NoteData(etTitle.getText().toString(),
                                 etMessage.getText().toString(), System.currentTimeMillis() + "", false);
-                        noteDataArrayList.add(newNote);
-//                        Log.e("TAG", "insertNote: "+noteDb.insertNoteInDb(newNote) );
+                        Log.e("TAG", "insertNote: "+noteDb.insertNoteInDb(newNote) );
                         etTitle.setText("");
                         etMessage.setText("");
+                        noteDataArrayList.add(newNote);
                         recyclerAdapter.notifyDataSetChanged();
-                        checkArrayListSize();
+//                        checkArrayListSize();
+                        Log.e("TAG", "onClick: " + noteDataArrayList.get(0).getTitle());
                     }
                 }).create();
         fab.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +93,11 @@ public class MainActivity extends AppCompatActivity {
 //                recyclerAdapter.notifyDataSetChanged();
             }
         });
+
+
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        rv.setAdapter(recyclerAdapter);
 
     }
 

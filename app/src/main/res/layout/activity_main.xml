@@ -19,14 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tvHint"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:gravity="center"
-            android:hint="Click + Button below to add a note " />
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
@@ -44,5 +36,12 @@
             app:srcCompat="@color/colorAccent" />
     </FrameLayout>
 
+    <TextView
+        android:id="@+id/tvHint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        android:hint="Click + Button below to add a note " />
 
 </LinearLayout>
